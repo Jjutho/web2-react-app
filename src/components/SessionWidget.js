@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Spinner } from 'react-bootstrap';
 
 import * as authenticationActions from '../actions/authenticationActions';
 import { bindActionCreators } from 'redux';
@@ -68,6 +68,16 @@ class SessionWidget extends Component {
       showDialog = false;
     }
 
+    let loginPending = this.props.loginPending;
+    if ( loginPending === undefined ) {
+      loginPending = false;
+    }
+
+    let isError = this.props.error;
+    if ( isError === undefined ) {
+      isError = false;
+    }
+
     const user = this.props.user;
     let sessionButton;
 
@@ -103,6 +113,8 @@ class SessionWidget extends Component {
                 <Form.Control type="password" placeholder="Password" name="password" onChange={this.handleOnChange} />
               </Form.Group>
               {submitButton}
+              {isError && <Form.Label style={{color: "red", marginLeft:"20px"}}>Invalid user ID or password</Form.Label>}
+              {loginPending && <Spinner animation="border" variant="primary" style={{marginLeft:"20px"}} />}
             </Form>
           </Modal.Body>
           <Modal.Footer>
