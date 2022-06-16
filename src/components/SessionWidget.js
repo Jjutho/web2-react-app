@@ -1,92 +1,112 @@
 import React, { Component } from 'react';
-import { getShowLoginDialog } from '../actions/authenticationActions';
-import { NavDropdown } from 'react-bootstrap';
-import LoginButton from './LoginButton';
+import { Modal, Form, Button } from 'react-bootstrap';
+
+import * as authenticationActions from '../actions/authenticationActions';
+import { bindActionCreators } from 'redux';
+
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return state;
+};
 
 class SessionWidget extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userID : '',
+      password : '',
+    };
     this.handleShowLoginDialog = this.handleShowLoginDialog.bind(this);
-    this.hideLoginDialog = this.hideLoginDialog.bind(this);
-    this.canLogin = this.canLogin.bind(this);
+    this.handleHideLoginDialog = this.handleHideLoginDialog.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.canSubmit = this.canSubmit.bind(this);
   }
 
   handleShowLoginDialog() {
-    const dispatch = this.props.dispatch;
-    dispatch(getShowLoginDialog());
+    const { showLoginDialogAction } = this.props;
+    showLoginDialogAction();
   }
   
-  hideLoginDialog() {
-    const dispatch = this.props.dispatch;
-    dispatch(getHideLoginDialog());
+  handleHideLoginDialog() {
+    const { hideLoginDialogAction } = this.props;
+    hideLoginDialogAction();
   }
 
-  canLogin() {
-    const { username, password } = this.props;
-    if (username && password) {
-      return true;
-    }
-    return false;
+  handleOnChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name] : value });
   }
 
-  handleSubmit() {
+  handleSubmit (e) {
     e.preventDefault();
-    const { username, password } = this.props;
-    const dispatch = this.props.dispatch;
-    dispatch(getLogin(username, password));
+    const { userID, password } = this.state;
+    const { authenticateUserAction } = this.props;
+    authenticateUserAction(userID, password);
   }
 
   handleLogout () {
-    const dispatch = this.props.dispatch;
-    dispatch(getLogout());
+    const { logoutUserAction } = this.props;
+    logoutUserAction();
+  }
+
+  canSubmit() {
+    const { userID, password } = this.state;
+    if (userID && password) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   render() {
-    let user = this.props.user;
-    let widgetButton;
-    if ( user ) {
-      const navIcon = user.avatar ? <img src={user.avatar} alt={user.name} /> : <i className="fa fa-user" />;
-      widgetButton = 
-      <>
-        <NavDropdown title={navIcon} id="basic-nav-dropdown">
-          <NavDropdown.Item href="*" onClick={this.handleLogout}>Logout</NavDropdown.Item>
-        </ NavDropdown>
-      </>
-    } else {
-      widgetButton = <LoginButton />;
-    }
 
     let showDialog = this.props.showLoginDialog;
+    if ( showDialog === undefined ) {
+      showDialog = false;
+    }
 
-    let loginButton;
-    if (this.canLogin()) {
-      loginButton = <Button variant="primary" type="submit" onClick={this.handleSubmit}>Login</Button>;
+    const user = this.props.user;
+    let sessionButton;
+
+    if (user) {
+      sessionButton = <Button variant="secondary" onClick={this.handleLogout}>Logout</Button>;
     } else {
-      loginButton = <Button variant="primary" type="submit" disabled>Login</Button>;
+      sessionButton = <Button variant="primary" onClick={this.handleShowLoginDialog}>Login</Button>
+    }
+    
+    let submitButton;
+    if (this.canSubmit()) {
+      submitButton = <Button id="LoginButton" variant="primary" type="submit" onClick={this.handleSubmit}>Login</Button>;
+    } else {
+      submitButton = <Button id="LoginButton" variant="primary" type="submit" disabled>Login</Button>;
     }
 
     return (
       <div>
-        {widgetButton}
-        <Modal show={showDialog} onHide={this.hideLoginDialog}>
+        {sessionButton}
+        <Modal show={showDialog} onHide={this.handleHideLoginDialog}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Control id="LoginUserIDInput" type="text" placeholder="User ID" name="userID" onChange={this.handleChange}/>
-              <Form.Control id="LoginPasswordInput" type="password" placeholder="Password" name="password" onChange={this.handleChange}/>
+              <Form.Group className="mb-3" controlId="LoginUserIDInput">
+                <Form.Label>User ID</Form.Label>
+                <Form.Control type="text" placeholder="User ID" name="userID" onChange={this.handleOnChange} />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="LoginPasswordInput">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" name="password" onChange={this.handleOnChange} />
+              </Form.Group>
+              {submitButton}
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.hideLoginDialog}>
-              Close
-            </Button>
-              {loginButton}
-              {isError && <Form.Label style={{color: 'red', marginLeft: '20px'}}>Invalid user ID or password</Form.Label>}
-              {pending && <Spinner animation="border" variant="primary" style={{marginLeft: '20px'}}/>}
+            Passwort vergessen?
           </Modal.Footer>
         </Modal>
       </div>
@@ -94,18 +114,11 @@ class SessionWidget extends Component {
   }
 }
 
-startAuthentication = () => {
-  const {authenticateUser} = this.props;
-  const {username, password} = this.state;
-  authenticateUser(username, password);
-}
-
-const mapStateToProps = (state) => {
-  return state.authenticationReducer;
-};
-
-const mapDispatchToProps = (dispatch) => bindActionCreators ({
-  authenticateUser: authenticationService.authenticateUser
+const mapDispatchToProps = dispatch => bindActionCreators ({
+  showLoginDialogAction: authenticationActions.getShowLoginDialogAction,
+  hideLoginDialogAction: authenticationActions.getHideLoginDialogAction,
+  authenticateUserAction: authenticationActions.authenticateUser,
+  logoutUserAction: authenticationActions.getLogoutAction
 }, dispatch);
 
 const ConnectedSessionWidget = connect(mapStateToProps, mapDispatchToProps)(SessionWidget);

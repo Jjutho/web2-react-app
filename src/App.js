@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 import TopMenu from './components/TopMenu';
-import WorkspacePublic from './components/WorkspacePublic';
-import LoginButton from './components/LoginButton';
+import PublicPage from './components/PublicPage';
+import PrivatePage from './components/PrivatePage';
+
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return state;
+}
 
 class App extends Component{
   render() {
+
+    const user = this.props.user;
+
+    let page;
+
+    if (user) {
+      page = <PrivatePage />;
+    } else {
+      page = <PublicPage />;
+    }
+
     return (
       <div className="App">
-        <LoginButton />
         <TopMenu />
-        <WorkspacePublic>
-          <LoginButton />
-        </WorkspacePublic>
+        {page}
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);

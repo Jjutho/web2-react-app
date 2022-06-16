@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { getShowLoginDialog } from '../actions/authenticationActions';
 import Button from 'react-bootstrap/Button';
+
+import { connect } from 'react-redux';
+import { getShowLoginDialogAction } from '../actions/authenticationActions';
 
 class LoginButton extends Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class LoginButton extends Component {
 
   showLoginDialog() {
     const dispatch = this.props.dispatch;
-    dispatch(getShowLoginDialog());
+    dispatch(getShowLoginDialogAction());
   }
 
   render() {
@@ -21,4 +23,5 @@ class LoginButton extends Component {
     );
   }
 }
+
 export default connect()(LoginButton);

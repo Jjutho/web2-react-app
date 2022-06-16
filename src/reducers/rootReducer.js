@@ -6,44 +6,51 @@ const initialState = {
   user: null
 };
 
-function authenticationReducer(state = initialState, action) {
+function rootReducer(state = initialState, action) {
   switch (action.type) {
     case authenticationActions.SHOW_LOGIN_DIALOG:
       return {
         ...state,
-        showLoginDialog: true
+        showLoginDialog: true,
+        error: null
       };
     case authenticationActions.HIDE_LOGIN_DIALOG:
       return {
         ...state,
-        showLoginDialog: false
+        showLoginDialog: false,
+        error: null
       };
-    case authenticationActions.AUTHENTICATION_PENDING:
+    case authenticationActions.LOGIN_PENDING:
       return {
         ...state,
-        pending: true
+        loginPending: true,
+        error: null
       };
-    case authenticationActions.AUTHENTICATION_SUCCESS:
+    case authenticationActions.LOGIN_SUCCESS:
       return {
         ...state,
         showLoginDialog: false,
-        pending: false,
+        loginPending: false,
         user: action.user,
-        accessToken: action.accessToken
+        accessToken: action.accessToken,
+        error: null
       };
-    case authenticationActions.AUTHENTICATION_FAILURE:
+    case authenticationActions.LOGIN_FAILURE:
       return {
         ...state,
-        pending: false
+        loginPending: false,
+        error: 'Login failed'
       };
     case authenticationActions.LOGOUT:
       return {
         ...state,
-        user: null
+        user: null,
+        accessToken: null,
+        error: null
       };
     default:
       return state;
   }
 }
 
-export default authenticationReducer;
+export default rootReducer;

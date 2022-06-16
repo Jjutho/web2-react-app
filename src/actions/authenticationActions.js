@@ -5,39 +5,98 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 
-export function getShowLoginDialog() {
+export function getShowLoginDialogAction() {
   return {
     type: SHOW_LOGIN_DIALOG
   };
 }
 
-export function getHideLoginDialog() {
+export function getHideLoginDialogAction() {
   return {
     type: HIDE_LOGIN_DIALOG
   };
 }
 
-export function getLoginPending() {
+export function getLoginPendingAction() {
   return {
     type: LOGIN_PENDING
   };
 }
 
-export function getLoginSuccess(user) {
+export function getLoginSuccessAction(userSession) {
   return {
     type: LOGIN_SUCCESS,
-    user
+    user: userSession.user,
+    accessToken: userSession.accessToken
   };
 }
 
-export function getLoginFailure() {
+export function getLoginFailureAction() {
   return {
-    type: LOGIN_FAILURE
+    type: LOGIN_FAILURE,
   };
 }
 
-export function getLogout() {
+export function getLogoutAction() {
   return {
     type: LOGOUT
   };
+}
+
+export function authenticateUser(userID, password) {
+  return dispatch => {
+    dispatch(getLoginPendingAction());
+    login(userID, password)
+      .then(userSession => {
+        dispatch(getLoginSuccessAction(userSession));
+      }, error => {
+        dispatch(getLoginFailureAction(error));
+      }
+    ).catch(error => {dispatch(getLoginFailureAction(error));});
+  }
+}
+
+function login(userID, password) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { 'Authorization':  'Basic '+btoa(userID+':'+password)}
+  };
+
+  return fetch('http://localhost:8080/authenticate', requestOptions)
+    .then(handleResponse)
+    .then(userSession => {
+      return userSession;
+    });
+}
+
+function handleResponse(response) {
+  const authorizationHeader = response.headers.get('Authorization');
+  return response.text().then(text => {
+
+    const data = text && JSON.parse(text);
+
+    let token;
+    if (authorizationHeader) {
+      token = authorizationHeader.split(' ')[1];
+    }
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        // auto logout if 401 response returned from api
+        logout();
+      }
+      const error = (data && data.message) || response.statusText;
+      return Promise.reject(error);
+    } else {
+      let userSession = {
+        user: data,
+        accessToken: token
+      };
+      return userSession;
+    }
+  });
+}
+
+function logout() {
+  console.log('Forcefully logged out.');
 }
