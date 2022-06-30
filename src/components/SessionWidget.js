@@ -79,12 +79,14 @@ class SessionWidget extends Component {
     }
 
     const user = this.props.user;
+    
     let sessionButton;
 
     if (user) {
-      sessionButton = <Button variant="secondary" onClick={this.handleLogout}>Logout</Button>;
+      const userName = user.userName;
+      sessionButton = <span className="user_greeting">Hallo {userName}!<Button id="LogoutButton" variant="secondary" onClick={this.handleLogout}>Logout</Button></span>;
     } else {
-      sessionButton = <Button variant="primary" onClick={this.handleShowLoginDialog}>Login</Button>
+      sessionButton = <Button variant="primary" onClick={this.handleShowLoginDialog}>Login</Button>;
     }
     
     let submitButton;

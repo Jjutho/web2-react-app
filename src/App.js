@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import TopMenu from './components/TopMenu';
 import PublicPage from './components/PublicPage';
 import PrivatePage from './components/PrivatePage';
+import UserManagement from './components/UserManagement';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
@@ -24,8 +26,13 @@ class App extends Component{
 
     return (
       <div className="App">
-        <TopMenu />
-        {page}
+        <Router>
+          <TopMenu />
+          <Routes>
+            <Route exact path="/" element={page} />
+            <Route path="/userManagement" element={<UserManagement/>} />
+          </Routes>
+        </Router>
       </div>
     );
   }
