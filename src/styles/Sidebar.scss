@@ -1,0 +1,14 @@
+.sidebar {
+  background:black;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar a {
+  color:white;
+  width: max-content;
+
+  &:hover {
+    color: red;
+  }
+}

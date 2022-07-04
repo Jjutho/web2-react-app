@@ -1,0 +1,23 @@
+.f-right {
+  float:right;
+
+  &.button-container {
+    width: max-content;
+  }
+}
+
+.abort-button {
+  margin-right: 20px;
+}
+
+.user-management-widget {
+  display: flex;
+  gap: 40px;
+  flex-flow: wrap;
+}
+
+.spinner-border,
+.update-success,
+.update-error {
+  margin-left:0 !important;
+}

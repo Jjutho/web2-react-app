@@ -1,9 +1,15 @@
 import * as authenticationActions from '../actions/authenticationActions';
+import * as editUserActions from '../actions/editUserActions';
 
 const initialState = {
   showLoginDialog: false,
   loginPending: false,
-  user: null
+  user: null,
+  showEditDialog: false,
+  getUsersPending: false,
+  selectedUser: null,
+  updateUserSuccess: false,
+  users: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -48,6 +54,69 @@ function rootReducer(state = initialState, action) {
         accessToken: null,
         error: null
       };
+    case editUserActions.CLOSE_EDIT_DIALOG:
+      return {
+        ...state,
+        showEditDialog: false,
+        error: null
+      };    
+    case editUserActions.SHOW_EDIT_DIALOG:
+      return {
+        ...state,
+        showEditDialog: true,
+        error: null
+      };
+      case editUserActions.GET_USERS_PENDING:
+        return {
+          ...state,
+          getUsersPending: true,
+          error: null
+        };
+      case editUserActions.GET_USERS_SUCCESS:
+        return {
+          ...state,
+          getUsersPending: false,
+          users: action.users,
+          error: null
+        };
+      case editUserActions.GET_USERS_FAILURE:
+        return {
+          ...state,
+          getUsersPending: false,
+          error: 'Getting users failed'
+        };
+      case editUserActions.SELECTED_USER:
+        return {
+          ...state,
+          selectedUser: action.selectedUser,
+          error: null
+        };
+      case editUserActions.UPDATE_USER_PENDING:
+        return {
+          ...state,
+          updateUserPending: true,
+          error: null
+        };
+      case editUserActions.UPDATE_USER_SUCCESS:
+        return {
+          ...state,
+          updateUserPending: false,
+          updateUserSuccess: true,
+          error: null
+        };
+      case editUserActions.UPDATE_USER_FAILURE:
+        return {
+          ...state,
+          updateUserPending: false,
+          updateUserSuccess: false,
+          error: 'Updating user failed'
+        };
+      case editUserActions.UPDATE_USER_SUCCESS_STATUS:
+        return {
+          ...state,
+          updateUserSuccess: false,
+          error: null
+        };
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import TopMenu from './components/TopMenu';
 import PublicPage from './components/PublicPage';
 import PrivatePage from './components/PrivatePage';
 import UserManagement from './components/UserManagement';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
@@ -16,22 +16,26 @@ class App extends Component{
 
     const user = this.props.user;
 
-    let page;
-
-    if (user) {
-      page = <PrivatePage />;
-    } else {
-      page = <PublicPage />;
+    let isAdmin = false;
+    if ( user != null && user.isAdministrator ) {
+      isAdmin = true;
     }
 
     return (
       <div className="App">
         <Router>
           <TopMenu />
-          <Routes>
-            <Route exact path="/" element={page} />
-            <Route path="/userManagement" element={<UserManagement/>} />
-          </Routes>
+            { user 
+              ? <Routes> 
+                  <Route exact path="/" element={<PrivatePage />}/>
+                  {isAdmin 
+                    && <Route path="/userManagement" element={<UserManagement/>}/>
+                  } 
+                </Routes>
+              : <Routes> 
+                  <Route exact path="/" element={<PublicPage />}/> 
+                </Routes>
+            }
         </Router>
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Form, Button, Spinner } from 'react-bootstrap';
+import '../styles/SessionWidget.scss';
 
 import * as authenticationActions from '../actions/authenticationActions';
 import { bindActionCreators } from 'redux';
@@ -84,7 +85,7 @@ class SessionWidget extends Component {
 
     if (user) {
       const userName = user.userName;
-      sessionButton = <span className="user_greeting">Hallo {userName}!<Button id="LogoutButton" variant="secondary" onClick={this.handleLogout}>Logout</Button></span>;
+      sessionButton = <span className="user_greeting"><span className="greeting">Hallo {userName}!</span><Button id="LogoutButton" variant="secondary" onClick={this.handleLogout}>Logout</Button></span>;
     } else {
       sessionButton = <Button variant="primary" onClick={this.handleShowLoginDialog}>Login</Button>;
     }
