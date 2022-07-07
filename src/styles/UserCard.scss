@@ -5,3 +5,20 @@
   padding: 20px;
   flex: 1 1 calc(33% - 40px);
 }
+
+.user-card {
+  display:flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.user-card-info {
+
+}
+
+.user-card-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
