@@ -27,10 +27,10 @@ class UserManagement extends Component {
   
   async handleSubmit( e, selectedUser ) {
     e.preventDefault();
-    const { updateUserAction } = this.props;
+    const { updateUserAction, getUsersAction } = this.props;
     let token = this.props.accessToken;
     await updateUserAction(selectedUser, token);
-    this.handleCloseEditDialog();
+    getUsersAction();
   }
 
   render() {
@@ -101,7 +101,8 @@ class UserManagement extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
     closeEditDialogAction: editUserActions.getCloseEditDialogAction,
-    updateUserAction: editUserActions.getUpdateUserAction
+    updateUserAction: editUserActions.getUpdateUserAction,
+    getUsersAction: editUserActions.getUsers
   }, dispatch);
 
 const ConnectedUserManagement = connect(mapStateToProps, mapDispatchToProps)(UserManagement);

@@ -20,10 +20,7 @@ class UserManagementWidget extends Component {
   }
 
   handleFetch() {
-    const { getUsersAction, resetUsersList, updatedUser } = this.props;
-    if (updatedUser !== null) {
-      resetUsersList();
-    }
+    const { getUsersAction } = this.props;
     getUsersAction();
   }
 
@@ -47,10 +44,6 @@ class UserManagementWidget extends Component {
     
     let foundUsers = false;
     let users = this.props.users;
-    let updatedUser = this.props.updatedUser;
-    if (updatedUser !== null ) {
-      this.handleFetch();
-    }
     let usersComponent;
     if (users !== undefined && users.length !== 0) {
       foundUsers = true;
@@ -71,8 +64,7 @@ class UserManagementWidget extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
   getUsersAction: editUserActions.getUsers,
-  getUpdateUserSuccessAction: editUserActions.getUpdateUserSuccessAction,
-  resetUsersList: editUserActions.getUpdateUserDone,
+  getUpdateUserSuccessAction: editUserActions.getUpdateUserSuccessAction
 }, dispatch);
 
 const ConnectedUserManagementWidget = connect(mapStateToProps, mapDispatchToProps)(UserManagementWidget);

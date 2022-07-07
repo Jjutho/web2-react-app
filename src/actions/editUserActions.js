@@ -10,7 +10,6 @@ export const UPDATE_USER_PENDING = 'UPDATE_USER_PENDING';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 export const UPDATE_USER_SUCCESS_STATUS = 'UPDATE_USER_SUCCESS_STATUS';
-export const UPDATE_USER_DONE = 'UPDATE_USER_DONE'
 
 export function getCloseEditDialogAction() {
   return {
@@ -49,20 +48,14 @@ export function getUpdateUserPendingAction() {
     type: UPDATE_USER_PENDING
   };
 }
-export function getUpdateUserSuccessAction(user) {
+export function getUpdateUserSuccessAction() {
   return {
-    type: UPDATE_USER_SUCCESS,
-    updatedUser: user
+    type: UPDATE_USER_SUCCESS
   };
 }
 export function getUpdateUserFailureAction() {
   return {
-    type: UPDATE_USER_FAILURE,
-  };
-}
-export function getUpdateUserDone() {
-  return {
-    type: UPDATE_USER_DONE,
+    type: UPDATE_USER_FAILURE
   };
 }
 
@@ -109,7 +102,7 @@ export function getUpdateUserAction(user, token) {
     dispatch(getUpdateUserPendingAction());
     updateUser(user, token)
       .then(user => {
-        dispatch(getUpdateUserSuccessAction(user));
+        dispatch(getUpdateUserSuccessAction());
       }, error => {
         dispatch(getUpdateUserFailureAction(error));
       }
