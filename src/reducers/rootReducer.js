@@ -9,7 +9,8 @@ const initialState = {
   getUsersPending: false,
   selectedUser: null,
   updateUserSuccess: false,
-  users: null
+  users: null,
+  updatedUser: null,
 };
 
 function rootReducer(state = initialState, action) {
@@ -102,6 +103,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           updateUserPending: false,
           updateUserSuccess: true,
+          updatedUser: action.updatedUser,
           error: null
         };
       case editUserActions.UPDATE_USER_FAILURE:
@@ -111,12 +113,14 @@ function rootReducer(state = initialState, action) {
           updateUserSuccess: false,
           error: 'Updating user failed'
         };
-      case editUserActions.UPDATE_USER_SUCCESS_STATUS:
+      case editUserActions.UPDATE_USER_DONE:
         return {
           ...state,
+          updateUserPending: false,
           updateUserSuccess: false,
+          updatedUser: null,
           error: null
-        };
+        }
     default:
       return state;
   }

@@ -11,9 +11,6 @@ const mapStateToProps = state => {
 class UserManagementWidget extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      update: false
-    };
     this.handleFetch = this.handleFetch.bind(this);
     this.mapUsersToComponents = this.mapUsersToComponents.bind(this);
   }
@@ -23,7 +20,10 @@ class UserManagementWidget extends Component {
   }
 
   handleFetch() {
-    const { getUsersAction } = this.props;
+    const { getUsersAction, resetUsersList, updatedUser } = this.props;
+    if (updatedUser !== null) {
+      resetUsersList();
+    }
     getUsersAction();
   }
 
@@ -39,9 +39,18 @@ class UserManagementWidget extends Component {
     if ( getUsersPending === undefined ) {
       getUsersPending = false;
     }
+
+    let updateUserSuccess = this.props.updateUserSuccess;
+    if ( updateUserSuccess === undefined ) {
+      updateUserSuccess = false;
+    }
     
     let foundUsers = false;
     let users = this.props.users;
+    let updatedUser = this.props.updatedUser;
+    if (updatedUser !== null ) {
+      this.handleFetch();
+    }
     let usersComponent;
     if (users !== undefined && users.length !== 0) {
       foundUsers = true;
@@ -51,7 +60,7 @@ class UserManagementWidget extends Component {
     return (
       <div className="user-management-widget">
         {/* {getUsersPending && <Spinner animation="border" variant="primary" style={{marginLeft:"20px"}} />} */}
-        {foundUsers 
+        {(updateUserSuccess || foundUsers) 
           ? usersComponent
           : <div><h3>No users found</h3></div>
         }
@@ -62,6 +71,8 @@ class UserManagementWidget extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
   getUsersAction: editUserActions.getUsers,
+  getUpdateUserSuccessAction: editUserActions.getUpdateUserSuccessAction,
+  resetUsersList: editUserActions.getUpdateUserDone,
 }, dispatch);
 
 const ConnectedUserManagementWidget = connect(mapStateToProps, mapDispatchToProps)(UserManagementWidget);

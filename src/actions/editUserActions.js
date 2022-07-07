@@ -10,6 +10,7 @@ export const UPDATE_USER_PENDING = 'UPDATE_USER_PENDING';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 export const UPDATE_USER_SUCCESS_STATUS = 'UPDATE_USER_SUCCESS_STATUS';
+export const UPDATE_USER_DONE = 'UPDATE_USER_DONE'
 
 export function getCloseEditDialogAction() {
   return {
@@ -48,9 +49,10 @@ export function getUpdateUserPendingAction() {
     type: UPDATE_USER_PENDING
   };
 }
-export function getUpdateUserSuccessAction() {
+export function getUpdateUserSuccessAction(user) {
   return {
-    type: UPDATE_USER_SUCCESS
+    type: UPDATE_USER_SUCCESS,
+    updatedUser: user
   };
 }
 export function getUpdateUserFailureAction() {
@@ -58,9 +60,9 @@ export function getUpdateUserFailureAction() {
     type: UPDATE_USER_FAILURE,
   };
 }
-export function getChangeUpdateSuccessStatus() {
+export function getUpdateUserDone() {
   return {
-    type: UPDATE_USER_SUCCESS_STATUS
+    type: UPDATE_USER_DONE,
   };
 }
 
@@ -97,7 +99,6 @@ function handleResponse (response) {
       const error = (data && data.message) || response.statusText;
       return Promise.reject(error);
     } else {
-      console.log(data);
       return data;
     }
   });
@@ -108,7 +109,7 @@ export function getUpdateUserAction(user, token) {
     dispatch(getUpdateUserPendingAction());
     updateUser(user, token)
       .then(user => {
-        dispatch(getUpdateUserSuccessAction());
+        dispatch(getUpdateUserSuccessAction(user));
       }, error => {
         dispatch(getUpdateUserFailureAction(error));
       }
@@ -134,14 +135,15 @@ function updateUser(user, token) {
 }
 
 function handleUpdateResponse (response) {
-  return response.text().then(() => {
+  return response.text().then((text) => {
+    const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
         return Promise.reject('Unauthorized');
       }
       return Promise.reject('Error');
     } else {
-      return Promise.resolve();
+      return Promise.resolve(data);
     }
   });
 }

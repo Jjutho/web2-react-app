@@ -21,9 +21,8 @@ class UserManagement extends Component {
   }
 
   handleCloseEditDialog() {
-    const { closeEditDialogAction, changeUpdateSuccessStatus } = this.props;
+    const { closeEditDialogAction } = this.props;
     closeEditDialogAction();
-    changeUpdateSuccessStatus();
   }
   
   async handleSubmit( e, selectedUser ) {
@@ -31,6 +30,7 @@ class UserManagement extends Component {
     const { updateUserAction } = this.props;
     let token = this.props.accessToken;
     await updateUserAction(selectedUser, token);
+    this.handleCloseEditDialog();
   }
 
   render() {
@@ -101,8 +101,7 @@ class UserManagement extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
     closeEditDialogAction: editUserActions.getCloseEditDialogAction,
-    updateUserAction: editUserActions.getUpdateUserAction,
-    changeUpdateSuccessStatus: editUserActions.getChangeUpdateSuccessStatus
+    updateUserAction: editUserActions.getUpdateUserAction
   }, dispatch);
 
 const ConnectedUserManagement = connect(mapStateToProps, mapDispatchToProps)(UserManagement);
