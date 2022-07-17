@@ -1,0 +1,128 @@
+
+$header-height: 80px;
+$primary-green-dark: #1E5128;
+$primary-green: #4E9F3D;
+$primary-green-light: #D8E9A8;
+$primary-gray: #121212;
+$primary-gray-light: #242624;
+$soft-white: #fbfaf5;
+
+#root {
+
+  height: 100vh;
+  color: $soft-white;
+
+  .website-title {
+    line-height: $header-height;
+    color: $primary-green;
+    margin-bottom: 0;
+  }
+
+  .brand {
+    display:flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  button {
+
+    border-radius: 50px;
+    padding: 8px 30px;
+    transition: 0.2s ease-in-out;
+    text-transform: uppercase;
+    font-weight: 400;
+    border:none;
+
+    &.btn-primary {
+      background: $primary-green-dark;
+
+      &:hover {
+        background: $soft-white;
+        color:$primary-gray;
+      }
+    }
+
+    &.btn-secondary {
+      background: $soft-white;
+      color:$primary-gray;
+
+      &:hover {
+        background: $primary-green-dark;
+        color: #fff;
+      }
+    }
+
+  }
+
+  .App {
+
+    height: 100%;
+
+    a {
+      color: #000;
+
+      &:hover {
+        color: #000;
+      }
+    }
+
+    .navbar {
+      height: $header-height;
+      z-index: 999;
+      padding: 0;
+
+      a {
+        padding: 0;
+      }
+
+      .user_greeting {
+        .greeting {
+          @media (max-width: 768px){
+            display:none;
+          }
+        }
+      }
+
+      .container {
+        max-width: unset;
+        padding-left: 0;
+        padding: 0 40px;
+        background:$primary-gray-light;
+
+        @media (max-width: 768px) {
+          padding: 0 15px;;
+        }
+      }
+    }
+
+    .page-content-top {
+      min-height: calc(100%  - $header-height);
+      background: $primary-gray;
+
+      &.private {
+        display:grid;
+        grid-template-columns: 120px calc(100% - 120px);
+
+        @media (max-width: 768px) {
+          grid-template-rows: 60px calc(100% - 60px);
+          grid-template-columns: 100%;
+        }
+      }
+
+      &.public {
+        .page-content {
+          height: calc(100vh - $header-height);
+        }
+      }
+    }
+
+    .page-content {
+      padding: 30px 40px;
+      background: $primary-gray;
+
+      @media (max-width: 768px) {
+        padding: 40px 15px;
+      }
+    }
+  }
+}

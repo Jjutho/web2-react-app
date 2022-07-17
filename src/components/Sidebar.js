@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import '../styles/Sidebar.scss';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faListUl } from '@fortawesome/free-solid-svg-icons';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+
 const mapStateToProps = state => {
   return state;
 }
@@ -20,11 +25,20 @@ class Sidebar extends Component {
     return (
       <Nav className="sidebar">
         <LinkContainer to="/" id="OpenPrivatePageButton">
-          <Nav.Link>Dashboard</Nav.Link>
+          <Nav.Link>
+          <FontAwesomeIcon icon={faHouse} size='2x' color='#fff'/>
+          </Nav.Link>
         </LinkContainer>
         {toggle && <LinkContainer to="/userManagement" id="OpenUserManagementButton">
-          <Nav.Link>User Management</Nav.Link>
+          <Nav.Link>
+            <FontAwesomeIcon icon={faUsers} size='2x' color='#fff'/>
+          </Nav.Link>
         </LinkContainer>}
+        <LinkContainer to="/forumThreadOverview" id="OpenForumThreadOverviewButton">
+          <Nav.Link>
+            <FontAwesomeIcon icon={faListUl} size='2x' color='#fff'/>
+          </Nav.Link>
+        </LinkContainer>
       </Nav>
     );
   }

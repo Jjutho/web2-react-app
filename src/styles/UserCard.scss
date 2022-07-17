@@ -1,24 +1,46 @@
-.user-card {
-  border: 1px solid #000;
-  border-radius: 15px;
-  max-width: calc(33% - 20px);
-  padding: 20px;
-  flex: 1 1 calc(33% - 40px);
-}
+@import 'General.scss';
 
 .user-card {
+  border: 1px solid $primary-gray-light;
+  border-radius: 15px;
+  padding: 20px;
+  max-width: calc(33% - 20px);
+  flex: 1 1 calc(33% - 40px);
+
   display:flex;
+  background: $primary-gray-light;
   justify-content: space-between;
   flex-direction: column;
   gap: 30px;
-}
 
-.user-card-info {
+  @media (min-width: 1750px) {
+    max-width: calc(25% - 20px);
+    flex: 1 1 calc(25% - 40px);
+  }
 
+  @media (max-width: 1024px) {
+    max-width: calc(50% - 5px);
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  @media (max-width: 768px) {
+    max-width: calc(100%);
+    flex: 1 1 calc(100%);
+  }
+
+  .highlighted-text {
+    color: $primary-green;
+  }
+
+  .user-card-table {
+    display:grid;
+    grid-template-columns: 155.5px auto;
+  }
 }
 
 .user-card-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 20px;
+  flex-wrap: wrap;
 }

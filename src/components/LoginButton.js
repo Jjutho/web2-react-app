@@ -18,7 +18,7 @@ class LoginButton extends Component {
   render() {
     return (
       <div>
-        <Button id="OpenLoginDialogButton" variant="light" onClick={this.showLoginDialog}>Login</Button>
+        <Button id="OpenLoginDialogButton" variant="primary" onClick={this.showLoginDialog}>Login</Button>
       </div>
     );
   }

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Form, Modal, Button, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Sidebar from './Sidebar';
 import UserManagementWidget from './UserManagementWidget';
 
 import { bindActionCreators } from 'redux';
 import * as editUserActions from '../actions/editUserActions';
 
-import '../styles/UserManagement.scss'
+import '../styles/UserManagement.scss';
 
 const mapStateToProps = state => {
   return state;
@@ -47,7 +46,7 @@ class UserManagement extends Component {
   
   async handleSubmit( e, selectedUser ) {
     e.preventDefault();
-    const { updateUserAction, getUsersAction } = this.props;
+    const { updateUserAction } = this.props;
     let token = this.props.accessToken;
     await updateUserAction(selectedUser, token);
   }
@@ -61,7 +60,7 @@ class UserManagement extends Component {
       password: password,
       isAdministrator: isAdministrator
     }
-    const { createUserAction, getUsersAction } = this.props;
+    const { createUserAction } = this.props;
     let token = this.props.accessToken;
     await createUserAction(newUser, token);
     this.handleCloseCreateUserDialog();
@@ -126,10 +125,11 @@ class UserManagement extends Component {
     }
 
     return (
-      <div className="page-content" id="LandingPage" style={{background: 'white'}}>
-        <Sidebar/>
-        <h1>User Management</h1>
-        <Button id="OpenCreateUserDialogButton" onClick={this.handleShowCreateUserDialog}>Add user</Button>
+      <div className="page-content" id="LandingPage">
+        <div className="user-management-heading-btn">
+          <h1>User Management</h1>
+          <Button id="OpenCreateUserDialogButton" onClick={this.handleShowCreateUserDialog}>+ Add user</Button>
+        </div>
         <UserManagementWidget/>
         {/* EDIT USER MODAL */}
         <Modal show={showEditDialog} onHide={this.handleCloseEditDialog}>

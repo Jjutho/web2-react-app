@@ -1,0 +1,113 @@
+@import 'General.scss';
+
+.title-public {
+  text-align: center;
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
+}
+
+
+h2 {
+  margin-bottom: 20px;
+}
+
+#OpenLoginDialogButton{
+  margin-top: 10px;
+}
+
+.keyphrase {
+  color: $primary-green;
+}
+
+.hero-section {
+  display:flex;
+  flex-direction: row;
+  height: calc(100% - 60px);
+  justify-content: space-between;
+  align-items:center;
+  max-width: 1200px;
+  margin:auto;
+
+  @media (max-width:1024px) {
+    flex-direction: column;
+    flex-flow: column-reverse;
+  }
+}
+
+.text-content,
+.svg-content {
+  flex: 1 1 50%;
+  max-width:40%;
+
+  @media (max-width:1024px) {
+    flex: 1 1 100%;
+    max-width:100%;
+  }
+}
+
+.text-content {
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 50%;
+  @media (max-width:1024px) {
+    max-width: 518px;
+    margin:auto;
+    justify-content: flex-start;
+
+    h2, p {
+      text-align:center;
+    }
+    div {
+      display:flex;
+
+      button {
+        margin:auto;
+      }
+    }
+  }
+}
+
+.svg-content {
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  position:relative;
+
+  .landing-icon {
+    &.fa-10x {
+      font-size: 20em;
+
+      @media (max-width:1024px) {
+        font-size: 10em;
+      }
+      @media (max-width:768px) {
+        font-size: 7em;
+      }
+    }
+    animation: color-change 1s infinite;
+  }
+
+  @keyframes color-change {
+    0% {
+      color: $primary-green;
+    }
+    50% {
+      color: $primary-green-dark;
+    }
+    100% {
+      color: $primary-green;
+    }
+  }
+
+  @media (max-width:1024px) {
+    max-height: 350px;
+  }
+
+  @media (max-width:768px) {
+    max-height: 250px;
+  }
+}

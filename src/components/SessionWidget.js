@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Form, Button, Spinner } from 'react-bootstrap';
+import { Modal, Form, Button, Spinner, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import '../styles/SessionWidget.scss';
 
 import * as authenticationActions from '../actions/authenticationActions';
@@ -85,9 +86,21 @@ class SessionWidget extends Component {
 
     if (user) {
       const userName = user.userName;
-      sessionButton = <span className="user_greeting"><span className="greeting">Hallo {userName}!</span><Button id="LogoutButton" variant="secondary" onClick={this.handleLogout}>Logout</Button></span>;
+      sessionButton = 
+      <span className="user_greeting">
+        <span className="greeting">
+          Hey {userName}!
+        </span>
+        <LinkContainer to="/" id="OpenPrivatePageButton">
+          <Nav.Link>
+            <Button id="LogoutButton" variant="secondary" onClick={this.handleLogout}>
+              Logout
+            </Button>
+          </Nav.Link>
+        </LinkContainer>
+      </span>;
     } else {
-      sessionButton = <Button variant="primary" onClick={this.handleShowLoginDialog}>Login</Button>;
+      sessionButton = <span className="login_wrapper"><Button variant="primary" onClick={this.handleShowLoginDialog}>Login</Button></span>;
     }
     
     let submitButton;
@@ -120,9 +133,6 @@ class SessionWidget extends Component {
               {loginPending && <Spinner animation="border" variant="primary" style={{marginLeft:"20px"}} />}
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            Passwort vergessen?
-          </Modal.Footer>
         </Modal>
       </div>
     );

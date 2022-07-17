@@ -1,5 +1,3 @@
-import { Buffer } from 'buffer';
-
 export const CLOSE_EDIT_DIALOG = 'CLOSE_EDIT_DIALOG';
 export const SHOW_EDIT_DIALOG = 'SHOW_EDIT_DIALOG';
 export const GET_USERS_PENDING = 'GET_USERS_PENDING';

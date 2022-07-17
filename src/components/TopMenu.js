@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import ConnectedSessionWidget from './SessionWidget';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import ConnectedSessionWidget from './SessionWidget';
+import { connect } from 'react-redux';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeaf } from '@fortawesome/free-solid-svg-icons';
+
+const mapStateToProps = state => {
+  return state;
+}
 
 class TopMenu extends Component {
   render() {
+
+    const user = this.props.user;
+
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="dark" expand="lg" variant="dark" className={`${ user ? 'private-nav' : 'public-nav' }`}>
         <Container>
-          <Navbar.Brand>Web2-Frontend</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
-            </Nav>
-            <ConnectedSessionWidget />
-          </Navbar.Collapse>
+          <Nav>
+            <LinkContainer to="/">
+              <Nav.Link>
+                <div className="brand">
+                  <FontAwesomeIcon icon={faLeaf} size='2x' color='#4E9F3D'/>
+                  <h2 className="website-title">EcoNet</h2>
+                </div>
+              </Nav.Link>
+            </LinkContainer>
+          </Nav>
+          <ConnectedSessionWidget />
         </Container>
       </Navbar>
     )
   }
 }
 
-export default TopMenu;
+export default connect(mapStateToProps)(TopMenu);

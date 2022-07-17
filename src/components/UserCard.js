@@ -38,7 +38,7 @@ class UserCard extends Component {
 
   async handleDelete(e, userID) {
     e.preventDefault();
-    const { deleteUserAction, getUsersAction } = this.props;
+    const { deleteUserAction } = this.props;
     let token = this.props.accessToken;
     await deleteUserAction(userID, token);
     this.handleCloseDeleteDialog();
@@ -70,9 +70,9 @@ class UserCard extends Component {
     return (
       <div className="user-card" id={id}>
         <div className="user-card-info">
-          <div className="user-card-name"><span>User ID: </span>{userID}</div>
-          <div className="user-card-email"><span>Username: </span>{userName}</div>
-          <div className="user-card-admin"><span>Administrator: </span>
+          <div className="user-card-name user-card-table"><span className="highlighted-text">User ID: </span>{userID}</div>
+          <div className="user-card-email user-card-table"><span className="highlighted-text">Username: </span>{userName}</div>
+          <div className="user-card-admin user-card-table"><span className="highlighted-text">Administrator: </span>
             {isAdmin 
               ? "True"
               : "False"

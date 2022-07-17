@@ -1,8 +1,10 @@
+@import 'General.scss';
+
 .greeting {
   margin-right: 20px;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   line-height: 1.3rem;
-  color: red;
+  color: $primary-green;
 }
 
 .user_greeting {

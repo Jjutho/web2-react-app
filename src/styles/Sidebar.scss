@@ -1,7 +1,30 @@
+@import 'General.scss';
+
 .sidebar {
   background:black;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 30px;
+  background: $primary-green-dark;
+  box-shadow: 5px 0 15px #34343480;
+  z-index: 10;
+  align-content: center;
+
+  @media (max-width: 768px) {
+    padding-top: 0;
+    align-items: center;
+    justify-content: center;
+    max-height: 60px;
+
+    a {
+      display:flex;
+    }
+
+    .fa-2x {
+      font-size: 1.3em;
+    }
+  }
 }
 
 .sidebar a {
