@@ -91,7 +91,7 @@ class SessionWidget extends Component {
         <span className="greeting">
           Hey {userName}!
         </span>
-        <LinkContainer to="/" id="OpenPrivatePageButton">
+        <LinkContainer to="/">
           <Nav.Link>
             <Button id="LogoutButton" variant="secondary" onClick={this.handleLogout}>
               Logout
@@ -114,7 +114,8 @@ class SessionWidget extends Component {
       <div>
         {sessionButton}
         <Modal show={showDialog} onHide={this.handleHideLoginDialog}>
-          <Modal.Header closeButton>
+          <Modal.Header>
+          <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleHideLoginDialog}></button>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>

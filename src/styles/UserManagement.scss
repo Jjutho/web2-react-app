@@ -29,19 +29,19 @@
     #OpenCreateUserDialogButton {
       margin-left: 0;
       margin-top: 20px;
-      
+      margin-bottom: 30px;
     }
   }
 }
 
 .user-management-widget {
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   gap: 40px;
   flex-flow: wrap;
 
   @media (max-width: 1024px) {
-    gap:10px;
+    gap:20px;
   }
 
   @media (max-width: 768px) {
@@ -53,4 +53,5 @@
 .update-success,
 .update-error {
   margin-left:0 !important;
+  margin-top:8px;
 }

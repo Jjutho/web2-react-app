@@ -133,7 +133,8 @@ class UserManagement extends Component {
         <UserManagementWidget/>
         {/* EDIT USER MODAL */}
         <Modal show={showEditDialog} onHide={this.handleCloseEditDialog}>
-          <Modal.Header closeButton>
+        <Modal.Header>
+          <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseEditDialog}></button>
             <Modal.Title>Edit User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -165,7 +166,8 @@ class UserManagement extends Component {
         </Modal>
         {/* CREATE USER MODAL */}
         <Modal show={showCreateUserDialog} onHide={this.handleCloseCreateUserDialog}>
-          <Modal.Header closeButton>
+        <Modal.Header>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseCreateUserDialog}></button>
             <Modal.Title>Create User</Modal.Title>
           </Modal.Header>
           <Modal.Body>

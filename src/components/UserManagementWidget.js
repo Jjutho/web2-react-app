@@ -32,11 +32,6 @@ class UserManagementWidget extends Component {
 
   render() {
 
-    let getUsersPending = this.props.getUsersPending;
-    if ( getUsersPending === undefined ) {
-      getUsersPending = false;
-    }
-
     let updateUserSuccess = this.props.updateUserSuccess;
     if ( updateUserSuccess === undefined ) {
       updateUserSuccess = false;
@@ -52,7 +47,6 @@ class UserManagementWidget extends Component {
 
     return (
       <div className="user-management-widget">
-        {/* {getUsersPending && <Spinner animation="border" variant="primary" style={{marginLeft:"20px"}} />} */}
         {(updateUserSuccess || foundUsers) 
           ? usersComponent
           : <div><h3>No users found</h3></div>

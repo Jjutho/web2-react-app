@@ -5,12 +5,97 @@ $primary-green: #4E9F3D;
 $primary-green-light: #D8E9A8;
 $primary-gray: #121212;
 $primary-gray-light: #242624;
+$primary-gray-v-light: #343434;
 $soft-white: #fbfaf5;
 
-#root {
+p {
+  line-height: 1.8em;
+}
 
+.heading-over-copy{
+  margin-bottom: 20px;
+}
+
+button.btn {
+  border-radius: 50px;
+  padding: 8px 30px;
+  transition: 0.2s ease-in-out;
+  text-transform: uppercase;
+  font-weight: 400;
+  border:none !important;
+
+  &.btn-primary,
+  &.btn-primary[disabled],
+  &.btn-primary:focus {
+    background: $primary-green-dark;
+    box-shadow:none;
+
+    &:hover {
+      background: $soft-white;
+      color:$primary-gray;
+    }
+  }
+
+  &.btn-secondary,
+  &.btn-secondary[disabled],
+  &.btn-secondary:focus {
+    background: $soft-white;
+    color:$primary-gray;
+    box-shadow:none;
+
+    &:hover {
+      background: $primary-green-dark;
+      color: $soft-white;
+    }
+  }
+}
+
+.modal {
+
+  input {
+    background-color: $soft-white;
+  }
+
+  .modal-content {
+    border: none;
+    background: $primary-gray-v-light;
+    color: $soft-white;
+
+    .modal-header {
+      border-bottom: 1px solid $primary-gray-v-light;
+      flex-flow: row-reverse;
+      padding: 30px 30px 0;
+    }
+
+    .modal-body {
+      padding:30px;
+    }
+
+    .form-check-input:checked,
+    .form-check-input:focus {
+      background-color: $primary-green;
+      border-color: $primary-green;
+    }
+
+    .btn-close {
+      color: $soft-white;
+      box-shadow:none;
+    }
+  }
+}
+
+#root {
   height: 100vh;
   color: $soft-white;
+}
+  
+
+.App {
+
+  .divider {
+    border-bottom: 1px solid $primary-green-dark;
+    margin: 50px 0;
+  }
 
   .website-title {
     line-height: $header-height;
@@ -24,105 +109,72 @@ $soft-white: #fbfaf5;
     gap: 10px;
   }
 
-  button {
+  height: 100%;
 
-    border-radius: 50px;
-    padding: 8px 30px;
-    transition: 0.2s ease-in-out;
-    text-transform: uppercase;
-    font-weight: 400;
-    border:none;
+  a {
+    color: #000;
 
-    &.btn-primary {
-      background: $primary-green-dark;
-
-      &:hover {
-        background: $soft-white;
-        color:$primary-gray;
-      }
+    &:hover {
+      color: #000;
     }
-
-    &.btn-secondary {
-      background: $soft-white;
-      color:$primary-gray;
-
-      &:hover {
-        background: $primary-green-dark;
-        color: #fff;
-      }
-    }
-
   }
 
-  .App {
-
-    height: 100%;
+  .navbar {
+    height: $header-height;
+    z-index: 999;
+    padding: 0;
 
     a {
-      color: #000;
-
-      &:hover {
-        color: #000;
-      }
-    }
-
-    .navbar {
-      height: $header-height;
-      z-index: 999;
       padding: 0;
+    }
 
-      a {
-        padding: 0;
-      }
-
-      .user_greeting {
-        .greeting {
-          @media (max-width: 768px){
-            display:none;
-          }
-        }
-      }
-
-      .container {
-        max-width: unset;
-        padding-left: 0;
-        padding: 0 40px;
-        background:$primary-gray-light;
-
-        @media (max-width: 768px) {
-          padding: 0 15px;;
+    .user_greeting {
+      .greeting {
+        @media (max-width: 768px){
+          display:none;
         }
       }
     }
 
-    .page-content-top {
-      min-height: calc(100%  - $header-height);
-      background: $primary-gray;
-
-      &.private {
-        display:grid;
-        grid-template-columns: 120px calc(100% - 120px);
-
-        @media (max-width: 768px) {
-          grid-template-rows: 60px calc(100% - 60px);
-          grid-template-columns: 100%;
-        }
-      }
-
-      &.public {
-        .page-content {
-          height: calc(100vh - $header-height);
-        }
-      }
-    }
-
-    .page-content {
-      padding: 30px 40px;
-      background: $primary-gray;
+    .container {
+      max-width: unset;
+      padding-left: 0;
+      padding: 0 40px;
+      background:$primary-gray-light;
 
       @media (max-width: 768px) {
-        padding: 40px 15px;
+        padding: 0 15px;;
       }
+    }
+  }
+
+  .page-content-top {
+    min-height: calc(100%  - $header-height);
+    background: $primary-gray;
+
+    &.private {
+      display:grid;
+      grid-template-columns: 120px calc(100% - 120px);
+
+      @media (max-width: 768px) {
+        grid-template-rows: 60px calc(100% - 60px);
+        grid-template-columns: 100%;
+      }
+    }
+
+    &.public {
+      .page-content {
+        height: calc(100vh - $header-height);
+      }
+    }
+  }
+
+  .page-content {
+    padding: 30px 40px;
+    background: $primary-gray;
+
+    @media (max-width: 768px) {
+      padding: 40px 15px;
     }
   }
 }

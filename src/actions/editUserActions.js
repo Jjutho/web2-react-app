@@ -8,8 +8,8 @@ export const UPDATE_USER_PENDING = 'UPDATE_USER_PENDING';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 export const UPDATE_USER_SUCCESS_STATUS = 'UPDATE_USER_SUCCESS_STATUS';
-export const CLOSE_DELETE_DIALOG = 'CLOSE_DELETE_DIALOG';
-export const SHOW_DELETE_DIALOG = 'SHOW_DELETE_DIALOG';
+export const CLOSE_USER_DELETE_DIALOG = 'CLOSE_USER_DELETE_DIALOG';
+export const SHOW_USER_DELETE_DIALOG = 'SHOW_USER_DELETE_DIALOG';
 
 export const DELETE_USER_PENDING = 'DELETE_USER_PENDING';
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
@@ -51,14 +51,14 @@ export function getShowCreateUserDialogAction() {
   };
 }
 // DELETE DIALOG
-export function getShowDeleteDialogAction () {
+export function getShowUserDeleteDialogAction () {
   return {
-    type: SHOW_DELETE_DIALOG
+    type: SHOW_USER_DELETE_DIALOG
   }
 }
-export function getCloseDeleteDialogAction () {
+export function getCloseUserDeleteDialogAction () {
   return {
-    type: CLOSE_DELETE_DIALOG
+    type: CLOSE_USER_DELETE_DIALOG
   }
 }
 // GET

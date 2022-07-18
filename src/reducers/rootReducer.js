@@ -1,5 +1,6 @@
 import * as authenticationActions from '../actions/authenticationActions';
 import * as editUserActions from '../actions/editUserActions';
+import * as forumThreadActions from '../actions/forumThreadActions';
 
 const initialState = {
   showLoginDialog: false,
@@ -18,6 +19,7 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    // auth
     case authenticationActions.SHOW_LOGIN_DIALOG:
       return {
         ...state,
@@ -28,18 +30,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         showLoginDialog: false,
-        error: null
-      };
-    case editUserActions.SHOW_DELETE_DIALOG:
-      return {
-        ...state,
-        showDeleteDialog: true,
-        error: null
-      };
-    case editUserActions.CLOSE_DELETE_DIALOG:
-      return {
-        ...state,
-        showDeleteDialog: false,
         error: null
       };
     case authenticationActions.LOGIN_PENDING:
@@ -68,6 +58,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: null,
         accessToken: null,
+        error: null
+      };
+    //user
+    case editUserActions.SHOW_USER_DELETE_DIALOG:
+      return {
+        ...state,
+        showDeleteDialog: true,
+        error: null
+      };
+    case editUserActions.CLOSE_USER_DELETE_DIALOG:
+      return {
+        ...state,
+        showDeleteDialog: false,
         error: null
       };
     case editUserActions.CLOSE_EDIT_DIALOG:
@@ -158,6 +161,109 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         showCreateUserDialog: true,
+        error: null
+      }
+    // forum threads
+    case forumThreadActions.SHOW_FORUM_THREAD_DELETE_DIALOG:
+      return {
+        ...state,
+        showDeleteDialog: true,
+        error: null
+      };
+    case forumThreadActions.CLOSE_FORUM_THREAD_DELETE_DIALOG:
+      return {
+        ...state,
+        showDeleteDialog: false,
+        error: null
+      };
+    case forumThreadActions.CLOSE_EDIT_DIALOG:
+      return {
+        ...state,
+        showEditDialog: false,
+        updateForumThreadSuccess: false,
+        error: null
+      };    
+    case forumThreadActions.SHOW_EDIT_DIALOG:
+      return {
+        ...state,
+        showEditDialog: true,
+        error: null
+      };
+    case forumThreadActions.GET_FORUM_THREADS_PENDING:
+      return {
+        ...state,
+        getForumThreadsPending: true,
+        error: null
+      };
+    case forumThreadActions.GET_FORUM_THREADS_SUCCESS:
+      return {
+        ...state,
+        getForumThreadsPending: false,
+        threads: action.threads,
+        error: null
+      };
+    case forumThreadActions.GET_FORUM_THREADS_FAILURE:
+      return {
+        ...state,
+        getForumThreadsPending: false,
+        error: 'Getting threads failed'
+      };
+    case forumThreadActions.SELECTED_FORUM_THREAD:
+      return {
+        ...state,
+        selectedForumThread: action.selectedForumThread,
+        error: null
+      };
+    case forumThreadActions.UPDATE_FORUM_THREAD_PENDING:
+      return {
+        ...state,
+        updateForumThreadPending: true,
+        error: null
+      };
+    case forumThreadActions.UPDATE_FORUM_THREAD_SUCCESS:
+      return {
+        ...state,
+        updateForumThreadPending: false,
+        updateForumThreadSuccess: true,
+        error: null
+      };
+    case forumThreadActions.UPDATE_FORUM_THREAD_FAILURE:
+      return {
+        ...state,
+        updateForumThreadPending: false,
+        updateForumThreadSuccess: false,
+        error: 'Updating thread failed'
+      };
+    case forumThreadActions.DELETE_FORUM_THREAD_PENDING:
+      return {
+        ...state,
+        deleteForumThreadPending: true,
+        error: null
+      };
+    case forumThreadActions.DELETE_FORUM_THREAD_SUCCESS:
+      return {
+        ...state,
+        deleteForumThreadPending: false,
+        deleteForumThreadSuccess: true,
+        error: null
+      };
+    case forumThreadActions.DELETE_FORUM_THREAD_FAILURE:
+      return {
+        ...state,
+        deleteForumThreadPending: false,
+        deleteForumThreadSuccess: false,
+        error: 'Deleting thread failed'
+      };
+    case forumThreadActions.CLOSE_CREATE_FORUM_THREAD_DIALOG:
+      return {
+        ...state,
+        showCreateForumThreadDialog: false,
+        error: null
+      }
+    case forumThreadActions.SHOW_CREATE_FORUM_THREAD_DIALOG:
+      return {
+        ...state,
+        showCreateForumThreadDialog: true,
         error: null
       }
     default:

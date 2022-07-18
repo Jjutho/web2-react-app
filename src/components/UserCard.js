@@ -84,8 +84,9 @@ class UserCard extends Component {
           <Button id={deleteButtonID} variant="secondary" onClick={() => this.handleShowDeleteDialog()}>Delete User</Button>
         </div>
         <Modal show={showDeleteDialog} onHide={this.handleCloseDeleteDialog}>
-          <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to delete this user?</Modal.Title>
+        <Modal.Header>
+          <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseDeleteDialog}></button>
+            <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="f-right button-container">
@@ -102,8 +103,8 @@ class UserCard extends Component {
 const mapDispatchToProps = dispatch => bindActionCreators ({
   showEditDialogAction: editUserActions.getShowEditDialogAction,
   getSelectedUserAction: editUserActions.getSelectedUserAction,
-  showDeleteDialogAction: editUserActions.getShowDeleteDialogAction,
-  closeDeleteDialogAction: editUserActions.getCloseDeleteDialogAction,
+  showDeleteDialogAction: editUserActions.getShowUserDeleteDialogAction,
+  closeDeleteDialogAction: editUserActions.getCloseUserDeleteDialogAction,
   deleteUserAction: editUserActions.deleteUser,
   getUsersAction: editUserActions.getUsers,
 }, dispatch);
