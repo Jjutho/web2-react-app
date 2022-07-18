@@ -4,9 +4,9 @@ import ForumMessageWidget from './ForumMessageWidget';
 import { Form, Modal, Button, Spinner } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux';
-import * as forumMessageActions from '../actions/forumMessageActions';
+import * as forumMessageActions from '../../actions/forumMessageActions';
 
-import '../styles/ForumThread.scss';
+import '../../styles/ForumThread.scss';
 
 const mapStateToProps = state => {
   return state;

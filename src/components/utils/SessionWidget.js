@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Form, Button, Spinner, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import '../styles/SessionWidget.scss';
+import '../../styles/SessionWidget.scss';
 
-import * as authenticationActions from '../actions/authenticationActions';
+import * as authenticationActions from '../../actions/authenticationActions';
 import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux';

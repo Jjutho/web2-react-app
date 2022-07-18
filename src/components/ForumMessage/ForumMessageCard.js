@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import '../styles/ForumMessageCard.scss';
+import '../../styles/ForumMessageCard.scss';
 
 import { Button, Modal, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
-import * as forumMessageActions from '../actions/forumMessageActions';
+import * as forumMessageActions from '../../actions/forumMessageActions';
 
 const mapStateToProps = state => {
   return state;

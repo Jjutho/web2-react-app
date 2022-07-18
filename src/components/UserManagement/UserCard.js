@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import '../styles/UserCard.scss';
+import '../../styles/UserCard.scss';
 
 import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
-import * as editUserActions from '../actions/editUserActions';
+import * as editUserActions from '../../actions/editUserActions';
 
 const mapStateToProps = state => {
   return state;

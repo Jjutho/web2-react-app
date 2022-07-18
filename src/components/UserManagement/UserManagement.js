@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import UserManagementWidget from './UserManagementWidget';
 
 import { bindActionCreators } from 'redux';
-import * as editUserActions from '../actions/editUserActions';
+import * as editUserActions from '../../actions/editUserActions';
 
-import '../styles/UserManagement.scss';
+import '../../styles/UserManagement.scss';
 
 const mapStateToProps = state => {
   return state;

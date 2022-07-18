@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../styles/PrivatePage.scss';
+import '../../styles/PrivatePage.scss';
 
 const mapStateToProps = state => {
   return state;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as editUserActions from '../actions/editUserActions';
+import * as editUserActions from '../../actions/editUserActions';
 import UserCard from './UserCard';
 
 const mapStateToProps = state => {

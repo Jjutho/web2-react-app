@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import '../styles/Sidebar.scss';
+import '../../styles/Sidebar.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';

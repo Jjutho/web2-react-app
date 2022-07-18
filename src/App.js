@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import TopMenu from './components/TopMenu';
-import PublicPage from './components/PublicPage';
-import PrivatePage from './components/PrivatePage';
-import UserManagement from './components/UserManagement';
-import ForumThreadOverview from './components/ForumThreadOverview';
-import ForumThread from './components/ForumThread';
-import Sidebar from './components/Sidebar';
+import TopMenu from './components/Navigation/TopMenu';
+import PublicPage from './components/SinglePages/PublicPage';
+import PrivatePage from './components/SinglePages/PrivatePage';
+import UserManagement from './components/UserManagement/UserManagement';
+import ForumThreadOverview from './components/ForumThread/ForumThreadOverview';
+import ForumThread from './components/ForumMessage/ForumThread';
+import Sidebar from './components/Navigation/Sidebar';
 import './styles/General.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import ProtectedRoutes from './components/ProtectedRoute';
+import ProtectedRoutes from './components/utils/ProtectedRoute';
 
 import { connect } from 'react-redux';
 
