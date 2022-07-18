@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import '../styles/ForumThreadCard.scss';
 
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import * as forumThreadActions from '../actions/forumThreadActions';
+import * as forumMessageActions from '../actions/forumMessageActions';
 
 const mapStateToProps = state => {
   return state;
@@ -36,6 +38,11 @@ class UserCard extends Component {
     closeDeleteDialogAction();
   }
 
+  handleThreadTransfer(threadID, name, description) {
+    const { handleThreadTransferAction} = this.props;
+    handleThreadTransferAction(threadID, name, description);
+  }
+
   async handleDelete(e, threadID) {
     e.preventDefault();
     const { deleteForumThread } = this.props;
@@ -46,19 +53,29 @@ class UserCard extends Component {
 
   render() {
 
+    const user = this.props.user;
+
     let threadID = this.props.threadID;
     let name = this.props.name;
     let description = this.props.description;
+    let ownerID = this.props.ownerID;
 
     let selectedForumThread = {
-      threadID: threadID,
       name: name,
-      description: description
+      description: description,
+      _id: threadID,
+      ownerID: ownerID
     }
 
     const id = "ForumThread" + threadID;
     const buttonID = "EditForumThreadButton" + threadID;
     const deleteButtonID = "DeleteForumThreadButton" + threadID;
+    const viewButtonID = "ViewForumThreadButton" + threadID;
+
+    let mayEdit = false;
+    if (user.userID === ownerID || user.isAdministrator) {
+      mayEdit = true;
+    }
 
     let showDeleteDialog = this.props.showDeleteDialog;
     if ( showDeleteDialog === undefined ){
@@ -66,18 +83,28 @@ class UserCard extends Component {
     }  
 
     return (
-      <div className="forum-thread-card forumThread" id={id}>
+      <div className="forum-thread-card forumMessage" id={id}>
         <div className="forum-thread-info">
-          <div className="user-card-name user-card-table"><span className="highlighted-text">Title: </span>{name}</div>
-          <div className="user-card-email user-card-table"><span className="highlighted-text">Description: </span>{description}</div>
+          <div className="forum-thread-card-name"><span className="highlighted-text"><h2>{name}</h2></span></div>
+          <div className="forum-thread-card-author">by <span className="highlighted-text-light">{ownerID}</span></div>
+          <div className="forum-thread-card-description"><p>{description}</p></div>
         </div>
         <div className="forum-thread-buttons">
-          <Button id={buttonID} variant="primary" onClick={() => this.handleShowEditDialog(selectedForumThread)}>Edit forum thread</Button>
-          <Button id={deleteButtonID} variant="secondary" onClick={() => this.handleShowDeleteDialog()}>Delete forum thread</Button>
+          <LinkContainer to={`/forumThread/${threadID}`}>
+            <Nav.Link>
+              <Button id={viewButtonID} variant="primary" onClick={() => this.handleThreadTransfer(threadID, name, description)}>View messages</Button>
+            </Nav.Link>
+          </LinkContainer>
+          { mayEdit &&
+          <Button id={buttonID} variant="primary" className="tertiary" onClick={() => this.handleShowEditDialog(selectedForumThread)}>Edit</Button>
+          }
+          { mayEdit &&
+          <Button id={deleteButtonID} variant="secondary" onClick={() => this.handleShowDeleteDialog()}>Delete</Button>
+          }
         </div>
         <Modal show={showDeleteDialog} onHide={this.handleCloseDeleteDialog}>
         <Modal.Header>
-          <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseDeleteDialog}></button>
+          <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseDeleteDialog}></button>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -93,12 +120,13 @@ class UserCard extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
-  showEditDialogAction: forumThreadActions.getShowEditDialogAction,
+  showEditDialogAction: forumThreadActions.getShowForumThreadEditDialogAction,
   getSelectedForumThreadAction: forumThreadActions.getSelectedForumThreadAction,
   showDeleteDialogAction: forumThreadActions.getShowDeleteDialogAction,
   closeDeleteDialogAction: forumThreadActions.getCloseDeleteDialogAction,
   deleteForumThread: forumThreadActions.deleteForumThread,
   getForumThreads: forumThreadActions.getForumThreads,
+  handleThreadTransferAction: forumMessageActions.getHandleThreadTransferAction
 }, dispatch);
 
 const ConnectedUserCard = connect(mapStateToProps, mapDispatchToProps)(UserCard);

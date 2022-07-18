@@ -119,9 +119,9 @@ class UserManagement extends Component {
 
     let createUserButton;
     if (this.canSubmit()) {
-      createUserButton = <Button className="create-user-button" id="CreateUserButton" variant="primary" type="submit" onClick={e => this.handleUserSubmit(e)}>Create user</Button>
+      createUserButton = <Button className="create-user-button" id="CreateUserButton" variant="primary" type="submit" onClick={e => this.handleUserSubmit(e)}>add user</Button>
     } else {
-      createUserButton = <Button className="create-user-button" id="CreateUserButton" variant="primary" type="submit" onClick={e => this.handleUserSubmit(e)} disabled>Create user</Button>
+      createUserButton = <Button className="create-user-button" id="CreateUserButton" variant="primary" type="submit" onClick={e => this.handleUserSubmit(e)} disabled>add user</Button>
     }
 
     return (
@@ -167,8 +167,8 @@ class UserManagement extends Component {
         {/* CREATE USER MODAL */}
         <Modal show={showCreateUserDialog} onHide={this.handleCloseCreateUserDialog}>
         <Modal.Header>
-        <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseCreateUserDialog}></button>
-            <Modal.Title>Create User</Modal.Title>
+        <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseCreateUserDialog}></button>
+            <Modal.Title>Create user</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -200,7 +200,7 @@ class UserManagement extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
-    closeEditDialogAction: editUserActions.getCloseEditDialogAction,
+    closeEditDialogAction: editUserActions.getCloseUserEditDialogAction,
     updateUserAction: editUserActions.getUpdateUserAction,
     showCreateUserDialogAction: editUserActions.getShowCreateUserDialogAction,
     closeCreateUserDialog: editUserActions.getCloseCreateUserDialogAction,

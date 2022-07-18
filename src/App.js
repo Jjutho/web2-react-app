@@ -4,6 +4,7 @@ import PublicPage from './components/PublicPage';
 import PrivatePage from './components/PrivatePage';
 import UserManagement from './components/UserManagement';
 import ForumThreadOverview from './components/ForumThreadOverview';
+import ForumThread from './components/ForumThread';
 import Sidebar from './components/Sidebar';
 import './styles/General.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -50,6 +51,13 @@ class App extends Component{
                 element={
                   <ProtectedRoutes user={user}>
                     <ForumThreadOverview />
+                  </ProtectedRoutes>
+                }
+              />
+              <Route path="/forumThread/:id" 
+                element={
+                  <ProtectedRoutes user={user}>
+                    <ForumThread />
                   </ProtectedRoutes>
                 }
               />

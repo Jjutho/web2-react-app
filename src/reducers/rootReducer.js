@@ -1,6 +1,7 @@
 import * as authenticationActions from '../actions/authenticationActions';
 import * as editUserActions from '../actions/editUserActions';
 import * as forumThreadActions from '../actions/forumThreadActions';
+import * as forumMessageActions from '../actions/forumMessageActions';
 
 const initialState = {
   showLoginDialog: false,
@@ -15,6 +16,7 @@ const initialState = {
   deleteUserPending: false,
   deleteUserSuccess: false,
   deleteUserFailure: false,
+  thread: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -73,14 +75,14 @@ function rootReducer(state = initialState, action) {
         showDeleteDialog: false,
         error: null
       };
-    case editUserActions.CLOSE_EDIT_DIALOG:
+    case editUserActions.CLOSE_USER_EDIT_DIALOG:
       return {
         ...state,
         showEditDialog: false,
         updateUserSuccess: false,
         error: null
       };    
-    case editUserActions.SHOW_EDIT_DIALOG:
+    case editUserActions.SHOW_USER_EDIT_DIALOG:
       return {
         ...state,
         showEditDialog: true,
@@ -176,14 +178,14 @@ function rootReducer(state = initialState, action) {
         showDeleteDialog: false,
         error: null
       };
-    case forumThreadActions.CLOSE_EDIT_DIALOG:
+    case forumThreadActions.CLOSE_FORUM_THREAD_EDIT_DIALOG:
       return {
         ...state,
         showEditDialog: false,
         updateForumThreadSuccess: false,
         error: null
       };    
-    case forumThreadActions.SHOW_EDIT_DIALOG:
+    case forumThreadActions.SHOW_FORUM_THREAD_EDIT_DIALOG:
       return {
         ...state,
         showEditDialog: true,
@@ -264,6 +266,117 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         showCreateForumThreadDialog: true,
+        error: null
+      }
+    // forum message
+    case forumMessageActions.HANDLE_THREAD_TRANSFER:
+      return {
+        ...state,
+        thread: action.thread,
+        threadName: action.threadName,
+        threadDescription: action.threadDescription,
+        error: null
+      }
+    case forumMessageActions.SHOW_FORUM_MESSAGE_DELETE_DIALOG:
+      return {
+        ...state,
+        showDeleteDialog: true,
+        error: null
+      };
+    case forumMessageActions.CLOSE_FORUM_MESSAGE_DELETE_DIALOG:
+      return {
+        ...state,
+        showDeleteDialog: false,
+        error: null
+      };
+    case forumMessageActions.CLOSE_FORUM_MESSAGE_EDIT_DIALOG:
+      return {
+        ...state,
+        showEditDialog: false,
+        updateForumMessageSuccess: false,
+        error: null
+      };    
+    case forumMessageActions.SHOW_FORUM_MESSAGE_EDIT_DIALOG:
+      return {
+        ...state,
+        showEditDialog: true,
+        error: null
+      };
+    case forumMessageActions.GET_FORUM_MESSAGES_PENDING:
+      return {
+        ...state,
+        getForumMessagesPending: true,
+        error: null
+      };
+    case forumMessageActions.GET_FORUM_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        getForumMessagesPending: false,
+        messages: action.messages,
+        error: null
+      };
+    case forumMessageActions.GET_FORUM_MESSAGES_FAILURE:
+      return {
+        ...state,
+        getForumMessagesPending: false,
+        error: 'Getting messages failed'
+      };
+    case forumMessageActions.SELECTED_FORUM_MESSAGE:
+      return {
+        ...state,
+        selectedForumMessage: action.selectedForumMessage,
+        error: null
+      };
+    case forumMessageActions.UPDATE_FORUM_MESSAGE_PENDING:
+      return {
+        ...state,
+        updateForumMessagePending: true,
+        error: null
+      };
+    case forumMessageActions.UPDATE_FORUM_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        updateForumMessagePending: false,
+        updateForumMessageSuccess: true,
+        error: null
+      };
+    case forumMessageActions.UPDATE_FORUM_MESSAGE_FAILURE:
+      return {
+        ...state,
+        updateForumMessagePending: false,
+        updateForumMessageSuccess: false,
+        error: 'Updating message failed'
+      };
+    case forumMessageActions.DELETE_FORUM_MESSAGE_PENDING:
+      return {
+        ...state,
+        deleteForumMessagePending: true,
+        error: null
+      };
+    case forumMessageActions.DELETE_FORUM_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        deleteForumMessagePending: false,
+        deleteForumMessageSuccess: true,
+        error: null
+      };
+    case forumMessageActions.DELETE_FORUM_MESSAGE_FAILURE:
+      return {
+        ...state,
+        deleteForumMessagePending: false,
+        deleteForumMessageSuccess: false,
+        error: 'Deleting message failed'
+      };
+    case forumMessageActions.CLOSE_CREATE_FORUM_MESSAGE_DIALOG:
+      return {
+        ...state,
+        showCreateForumMessageDialog: false,
+        error: null
+      }
+    case forumMessageActions.SHOW_CREATE_FORUM_MESSAGE_DIALOG:
+      return {
+        ...state,
+        showCreateForumMessageDialog: true,
         error: null
       }
     default:

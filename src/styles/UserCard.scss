@@ -28,10 +28,6 @@
     flex: 1 1 calc(100%);
   }
 
-  .highlighted-text {
-    color: $primary-green;
-  }
-
   .user-card-table {
     display:grid;
     grid-template-columns: 155.5px auto;
@@ -40,7 +36,7 @@
 
 .user-card-buttons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 20px;
   flex-wrap: wrap;
 }

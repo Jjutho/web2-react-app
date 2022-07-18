@@ -48,11 +48,20 @@ button.btn {
       color: $soft-white;
     }
   }
+
+  &.tertiary{
+    background:$primary-green-light;
+    color: $primary-gray;
+  }
+}
+
+.highlighted-text {
+  color: $primary-green;
 }
 
 .modal {
 
-  input {
+  input, textarea {
     background-color: $soft-white;
   }
 
@@ -95,6 +104,11 @@ button.btn {
   .divider {
     border-bottom: 1px solid $primary-green-dark;
     margin: 50px 0;
+    width: 100%;
+
+    &.small {
+      margin: 0px 0;
+    }
   }
 
   .website-title {

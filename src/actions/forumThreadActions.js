@@ -1,5 +1,5 @@
-export const CLOSE_EDIT_DIALOG = 'CLOSE_EDIT_DIALOG';
-export const SHOW_EDIT_DIALOG = 'SHOW_EDIT_DIALOG';
+export const CLOSE_FORUM_THREAD_EDIT_DIALOG = 'CLOSE_FORUM_THREAD_EDIT_DIALOG';
+export const SHOW_FORUM_THREAD_EDIT_DIALOG = 'SHOW_FORUM_THREAD_EDIT_DIALOG';
 export const GET_FORUM_THREADS_PENDING = 'GET_FORUM_THREADS_PENDING';
 export const GET_FORUM_THREADS_SUCCESS = 'GET_FORUM_THREADS_SUCCESS';
 export const GET_FORUM_THREADS_FAILURE = 'GET_FORUM_THREADS_FAILURE';
@@ -23,14 +23,14 @@ export const SHOW_CREATE_FORUM_THREAD_DIALOG = 'SHOW_CREATE_FORUM_THREAD_DIALOG'
 export const CLOSE_CREATE_FORUM_THREAD_DIALOG = 'CLOSE_CREATE_FORUM_THREAD_DIALOG'
 
 // EDIT FORUM THREAD DIALOG + SELECTED FORUM_THREAD
-export function getCloseEditDialogAction() {
+export function getCloseForumThreadEditDialogAction() {
   return {
-    type: CLOSE_EDIT_DIALOG
+    type: CLOSE_FORUM_THREAD_EDIT_DIALOG
   };
 }
-export function getShowEditDialogAction() {
+export function getShowForumThreadEditDialogAction() {
   return {
-    type: SHOW_EDIT_DIALOG
+    type: SHOW_FORUM_THREAD_EDIT_DIALOG
   };
 }
 export function getSelectedForumThreadAction(thread) {
@@ -191,7 +191,7 @@ function updateForumThread(thread, token) {
     body: JSON.stringify(thread)
   };
 
-  return fetch('http://localhost:8080/forumThreads/' + thread.threadID, requestOptions)
+  return fetch('http://localhost:8080/forumThreads/' + thread._id, requestOptions)
     .then(handleUpdateResponse)
     .then(thread => {
       return thread;

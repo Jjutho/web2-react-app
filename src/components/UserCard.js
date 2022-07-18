@@ -80,12 +80,12 @@ class UserCard extends Component {
           </div>
         </div>
         <div className="user-card-buttons">
-          <Button id={buttonID} variant="primary" onClick={() => this.handleShowEditDialog(selectedUser)}>Edit User</Button>
-          <Button id={deleteButtonID} variant="secondary" onClick={() => this.handleShowDeleteDialog()}>Delete User</Button>
+          <Button id={buttonID} variant="primary" onClick={() => this.handleShowEditDialog(selectedUser)}>Edit</Button>
+          <Button id={deleteButtonID} variant="secondary" onClick={() => this.handleShowDeleteDialog()}>Delete</Button>
         </div>
         <Modal show={showDeleteDialog} onHide={this.handleCloseDeleteDialog}>
         <Modal.Header>
-          <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseDeleteDialog}></button>
+          <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseDeleteDialog}></button>
             <Modal.Title>Are you sure?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -101,7 +101,7 @@ class UserCard extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
-  showEditDialogAction: editUserActions.getShowEditDialogAction,
+  showEditDialogAction: editUserActions.getShowUserEditDialogAction,
   getSelectedUserAction: editUserActions.getSelectedUserAction,
   showDeleteDialogAction: editUserActions.getShowUserDeleteDialogAction,
   closeDeleteDialogAction: editUserActions.getCloseUserDeleteDialogAction,

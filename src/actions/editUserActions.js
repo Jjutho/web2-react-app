@@ -1,5 +1,5 @@
-export const CLOSE_EDIT_DIALOG = 'CLOSE_EDIT_DIALOG';
-export const SHOW_EDIT_DIALOG = 'SHOW_EDIT_DIALOG';
+export const CLOSE_USER_EDIT_DIALOG = 'CLOSE_USER_EDIT_DIALOG';
+export const SHOW_USER_EDIT_DIALOG = 'SHOW_USER_EDIT_DIALOG';
 export const GET_USERS_PENDING = 'GET_USERS_PENDING';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
@@ -23,14 +23,14 @@ export const SHOW_CREATE_USER_DIALOG = 'SHOW_CREATE_USER_DIALOG';
 export const CLOSE_CREATE_USER_DIALOG = 'CLOSE_CREATE_USER_DIALOG'
 
 // EDIT USER DIALOG + SELECTED USER
-export function getCloseEditDialogAction() {
+export function getCloseUserEditDialogAction() {
   return {
-    type: CLOSE_EDIT_DIALOG
+    type: CLOSE_USER_EDIT_DIALOG
   };
 }
-export function getShowEditDialogAction() {
+export function getShowUserEditDialogAction() {
   return {
-    type: SHOW_EDIT_DIALOG
+    type: SHOW_USER_EDIT_DIALOG
   };
 }
 export function getSelectedUserAction(user) {

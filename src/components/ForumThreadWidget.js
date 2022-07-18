@@ -26,7 +26,7 @@ class ForumThreadWidget extends Component {
 
   mapThreadsToComponents(threads) {
     return threads.map(thread => {
-      return <ForumThreadCard threadID={thread.id} name={thread.name} description={thread.description}/>
+      return <ForumThreadCard key={thread._id} threadID={thread._id} name={thread.name} description={thread.description} ownerID={thread.ownerID}/>
     });
   };
 
@@ -46,9 +46,9 @@ class ForumThreadWidget extends Component {
     }
 
     return (
-      <div className="user-management-widget">
+      <div className="forum-thread-overview-widget" id="ForumThreadList">
         {(updateForumThreadSuccess || foundForumThreads) 
-          ? <div id="ForumThreadList">{forumThreadComponent}</div>
+          ? forumThreadComponent
           : <div><h3>No forum threads found</h3></div>
         }
       </div>

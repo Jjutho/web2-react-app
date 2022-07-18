@@ -6,6 +6,8 @@ import { Form, Modal, Button, Spinner } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import * as forumThreadActions from '../actions/forumThreadActions';
 
+import '../styles/ForumThreadOverview.scss';
+
 const mapStateToProps = state => {
   return state;
 }
@@ -53,7 +55,7 @@ class ForumThreadOverview extends Component {
     let newForumThread = {
       name: name,
       description: description,
-      ownerID: this.props.userID,
+      ownerID: this.props.user.userID,
     }
     const { createForumThreadAction } = this.props;
     let token = this.props.accessToken;
@@ -63,10 +65,6 @@ class ForumThreadOverview extends Component {
 
   handleOnChange(e) {
     const { name, value } = e.target;
-    if ( name === 'isAdministrator') {
-      this.setState({ [name] : e.target.checked });
-      return;
-    }
     this.setState({ [name] : value });
   }
 
@@ -114,35 +112,33 @@ class ForumThreadOverview extends Component {
 
     let createForumThreadButton;
     if (this.canSubmit()) {
-      createForumThreadButton = <Button className="create-forum-thread-button" id="CreateForumThreadButton" variant="primary" type="submit" onClick={e => this.handleForumThreadSubmit(e)}>Create forum thread</Button>
+      createForumThreadButton = <Button className="create-forum-thread-button" id="CreateForumThreadButton" variant="primary" type="submit" onClick={e => this.handleForumThreadSubmit(e)}>Create thread</Button>
     } else {
-      createForumThreadButton = <Button className="create-forum-thread-button" id="CreateForumThreadButton" variant="primary" type="submit" onClick={e => this.handleForumThreadSubmit(e)} disabled>Create forum thread</Button>
+      createForumThreadButton = <Button className="create-forum-thread-button" id="CreateForumThreadButton" variant="primary" type="submit" onClick={e => this.handleForumThreadSubmit(e)} disabled>Create thread</Button>
     }
-
-    const user = this.props.user.userName;
 
     return (
       <div className="page-content" id="ForumThreadOverview">
-        <div className="forum-thread-management-heading-btn">
+        <div className="forum-thread-overview-heading-btn">
           <h1>Forum Threads</h1>
-          <Button id="OpenCreateForumThreadDialogButton" onClick={this.handleShowCreateForumThreadDialog}>+ create Forum Thread</Button>
+          <Button id="OpenCreateForumThreadDialogButton" onClick={this.handleShowCreateForumThreadDialog}>+ create Thread</Button>
         </div>
         <ForumThreadWidget/>
         {/* EDIT FORUM THREAD MODAL */}
         <Modal show={showEditDialog} onHide={this.handleCloseEditDialog}>
         <Modal.Header>
-          <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseEditDialog}></button>
+          <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseEditDialog}></button>
             <Modal.Title>Edit Forum Thread</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
               <Form.Group className="mb-3" controlId="ForumThreadNameInput">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" value={forumThreadLoaded && selectedForumThread.userID} name="userID"/>
+                <Form.Control type="text" defaultValue={forumThreadLoaded && selectedForumThread.name} name="name" placeholder="Please enter a topic" onChange={e => selectedForumThread.name = e.target.value}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="ForumThreadDescriptionInput">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="text" defaultValue={forumThreadLoaded && selectedForumThread.userName} name="userName" onChange={e => selectedForumThread.userName = e.target.value}/>
+                <Form.Control as="textarea" rows={5} placeholder="Please enter a short description" defaultValue={forumThreadLoaded && selectedForumThread.description} name="description" onChange={e => selectedForumThread.description = e.target.value}/>
               </Form.Group>
               {updateForumThreadPending && <Spinner animation="border" variant="primary" style={{marginLeft:"20px"}} />}
               {isSuccess && <Form.Label className="update-success" style={{color: "green", marginLeft:"20px"}}>Forum Thread updated.</Form.Label>}
@@ -157,18 +153,18 @@ class ForumThreadOverview extends Component {
         {/* CREATE FORUM THREAD MODAL */}
         <Modal show={showCreateForumThreadDialog} onHide={this.handleCloseCreateForumThreadDialog}>
         <Modal.Header>
-        <button type="button" class="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseCreateForumThreadDialog}></button>
-            <Modal.Title>Create Forum Thread</Modal.Title>
+        <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={this.handleCloseCreateForumThreadDialog}></button>
+            <Modal.Title>Create a new thread</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
               <Form.Group className="mb-3" controlId="ForumThreadNameInput">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="text" placeholder="ForumThreadID" name="userID" onChange={this.handleOnChange}/>
+                <Form.Control type="text" placeholder="Please enter a topic" name="name" onChange={this.handleOnChange}/>
               </Form.Group>
               <Form.Group className="mb-3" controlId="ForumThreadDescriptionInput">
                 <Form.Label>Description</Form.Label>
-                <Form.Control type="text" placeholder="ForumThreadname" name="userName" onChange={this.handleOnChange}/>
+                <Form.Control as="textarea" rows={5} placeholder="Please enter a short description" name="description" onChange={this.handleOnChange}/>
               </Form.Group>
               <div className="f-right button-container">
                 <Button className="abort-button" id="CancelCreateForumThreadButton" variant="secondary" onClick={this.handleCloseCreateForumThreadDialog}>Abort</Button>
@@ -183,7 +179,7 @@ class ForumThreadOverview extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators ({
-  closeEditDialogAction: forumThreadActions.getCloseEditDialogAction,
+  closeEditDialogAction: forumThreadActions.getCloseForumThreadEditDialogAction,
   updateForumThreadAction: forumThreadActions.getUpdateForumThreadAction,
   showCreateForumThreadDialogAction: forumThreadActions.getShowCreateForumThreadDialogAction,
   closeCreateForumThreadDialog: forumThreadActions.getCloseCreateForumThreadDialogAction,
